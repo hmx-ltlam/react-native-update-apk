@@ -57,11 +57,11 @@ export class UpdateAPK {
     console.log("getApkVersionSuccess", remote);
     // TODO switch this to versionCode
     let outdated = false;
-    if (remote.versionCode && (remote.versionCode > RNUpdateAPK.versionCode)) {
-      console.log('RNUpdateAPK::getApkVersionSuccess - outdated based on code, local/remote: ' + RNUpdateAPK.versionCode + "/" + remote.versionCode);
+    if (remote.version && (remote.version > RNUpdateAPK.versionCode)) {
+      console.log('RNUpdateAPK::getApkVersionSuccess - outdated based on code, local/remote: ' + RNUpdateAPK.versionCode + "/" + remote.version);
       outdated = true;
     }
-    if (!remote.versionCode && semverLt(RNUpdateAPK.versionName, remote.versionName)) {
+    if (!remote.version && semverLt(RNUpdateAPK.versionName, remote.versionName)) {
       console.log('RNUpdateAPK::getApkVersionSuccess - APK outdated based on version name, local/remote: ' + RNUpdateAPK.versionName + "/" + remote.versionName);
       outdated = true
     }
@@ -104,7 +104,7 @@ export class UpdateAPK {
     const ret = RNFS.downloadFile(
       Object.assign(
         {
-          fromUrl: remote.apkUrl,
+          fromUrl: remote.download_url,
           toFile: downloadDestPath,
           begin,
           progress,
